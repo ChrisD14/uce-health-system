@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/authdb
+    username: admin
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql:true
+
+jwt:
+  secret: UCEHealthSystemSuperSecretKey2026
