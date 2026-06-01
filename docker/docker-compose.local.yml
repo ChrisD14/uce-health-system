@@ -34,19 +34,3 @@ services:
 
 volumes:
   auth_postgres_data:
-
-
-user-postgres:
-  image: postgres:16
-
-  container_name: postgres-user
-
-  restart: always
-
-  environment:
-    POSTGRES_DB: userdb
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-
-  ports:
-    - "5434:5432"
