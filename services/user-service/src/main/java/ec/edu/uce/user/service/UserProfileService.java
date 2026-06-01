@@ -87,4 +87,13 @@ public class UserProfileService {
 
         repository.deleteById(id);
     }
+
+    public UserProfile getProfileByEmail(String email) {
+
+        return repository
+                .findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Profile not found"));
+    }
 }

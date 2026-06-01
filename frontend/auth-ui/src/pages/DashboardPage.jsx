@@ -1,107 +1,140 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { getCurrentUser } from "../services/authService";
 
 function DashboardPage() {
 
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
+
+    const loadUser = async () => {
+
+      try {
+
+        const data =
+          await getCurrentUser();
+
+        setUser(data);
+
+      } catch (error) {
+
+        console.error(error);
+
+        localStorage.removeItem(
+          "accessToken"
+        );
+
+        navigate("/");
+      }
+    };
+
     loadUser();
-  }, []);
 
-  const loadUser = async () => {
+  }, [navigate]);
 
-    try {
+  const handleLogout = () => {
 
-      const response =
-        await getCurrentUser();
+    localStorage.removeItem(
+      "accessToken"
+    );
 
-      setUser(response);
-
-    } catch (error) {
-
-      console.error(error);
-
-      localStorage.clear();
-
-      window.location.href = "/";
-    }
+    navigate("/");
   };
 
-  const logout = () => {
+  if (!user) {
 
-    localStorage.clear();
+    return (
 
-    window.location.href = "/";
-  };
+      <div
+        className="
+          d-flex
+          justify-content-center
+          align-items-center
+          vh-100
+        "
+      >
+        Loading...
+      </div>
+
+    );
+  }
 
   return (
 
-    <div className="container mt-5">
+    <div
+      className="
+        d-flex
+        justify-content-center
+        align-items-center
+        vh-100
+      "
+      style={{
+        background:
+          "linear-gradient(135deg,#2563eb,#3b82f6)"
+      }}
+    >
 
-      <div className="card shadow-lg">
+      <div
+        className="card shadow p-4"
+        style={{
+          width: "700px"
+        }}
+      >
 
-        <div className="card-header bg-primary text-white">
+        <h2
+          className="text-center mb-4"
+        >
+          UCE Dashboard
+        </h2>
 
-          <h2>
-            UCE Health System
-          </h2>
+        <hr />
+
+        <div className="text-center">
+
+          <h5>
+            Authenticated User
+          </h5>
+
+          <p>
+            <strong>Email:</strong>{" "}
+            {user}
+          </p>
 
         </div>
 
-        <div className="card-body">
-
-          <h4>
-            Dashboard
-          </h4>
-
-          <hr />
-
-          <p>
-
-            <strong>
-              Email:
-            </strong>
-
-            {" "}
-            {user}
-
-          </p>
-
-          <p>
-
-            <strong>
-              Role:
-            </strong>
-
-            {" "}
-            {localStorage.getItem("role")}
-
-          </p>
-
-          <p>
-
-            <strong>
-              Status:
-            </strong>
-
-            {" "}
-            Authenticated
-          </p>
-
-          <p>
-
-            <strong>
-              Environment:
-            </strong>
-
-            {" "}
-            LOCAL
-          </p>
+        <div
+          className="
+            d-flex
+            justify-content-center
+            gap-3
+            mt-4
+          "
+        >
 
           <button
-            className="btn btn-danger"
-            onClick={logout}
+            className="
+              btn
+              btn-success
+            "
+            onClick={() =>
+              navigate("/profile")
+            }
+          >
+            My Profile
+          </button>
+
+          <button
+            className="
+              btn
+              btn-danger
+            "
+            onClick={
+              handleLogout
+            }
           >
             Logout
           </button>
@@ -111,6 +144,7 @@ function DashboardPage() {
       </div>
 
     </div>
+
   );
 }
 

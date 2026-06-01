@@ -2,6 +2,7 @@ package ec.edu.uce.user.repository;
 
 import ec.edu.uce.user.entity.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
 import java.util.Optional;
 

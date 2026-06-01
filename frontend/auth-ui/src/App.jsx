@@ -7,6 +7,7 @@ import {
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
+import ProfilePage from "./pages/ProfilePage";
 
 import "./App.css";
 
@@ -31,6 +32,11 @@ function App() {
         <Route
           path="/dashboard"
           element={<DashboardPage />}
+        />
+
+        <Route
+          path="/profile"
+          element={<ProfilePage />}
         />
 
       </Routes>

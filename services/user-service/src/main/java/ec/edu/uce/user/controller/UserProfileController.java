@@ -14,6 +14,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@CrossOrigin(
+        origins = {
+                "http://localhost:5173",
+                "http://127.0.0.1:5173"
+        }
+)
 public class UserProfileController {
 
     private final UserProfileService service;
@@ -64,5 +70,13 @@ public class UserProfileController {
     public String health() {
 
         return "User Service Running";
+    }
+
+    @GetMapping("/email/{email}")
+    public UserProfile getProfileByEmail(
+            @PathVariable String email) {
+
+        return service
+                .getProfileByEmail(email);
     }
 }
