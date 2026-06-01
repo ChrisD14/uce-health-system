@@ -64,7 +64,79 @@ services:
       - postgres-user
 
   frontend:
+services:
 
+  postgres-auth:
+
+    image: postgres:16
+
+    container_name: postgres-auth
+
+    environment:
+      POSTGRES_DB: authdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+
+    ports:
+      - "5433:5432"
+
+  postgres-user:
+
+    image: postgres:16
+
+    container_name: postgres-user
+
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+
+    ports:
+      - "5434:5432"
+
+  auth-service:
+
+    image: 437345552366.dkr.ecr.us-east-1.amazonaws.com/uce-health-auth:qa
+
+    container_name: auth-service
+
+    environment:
+      DB_URL: jdbc:postgresql://postgres-auth:5432/authdb
+      DB_USER: admin
+      DB_PASSWORD: admin
+      JWT_SECRET: TU_SECRET_JWT
+
+    ports:
+      - "8081:8081"
+
+    depends_on:
+      - postgres-auth
+
+  user-service:
+
+    image: 437345552366.dkr.ecr.us-east-1.amazonaws.com/uce-health-user:qa
+
+    container_name: user-service
+
+    environment:
+      DB_URL: jdbc:postgresql://postgres-user:5432/userdb
+      DB_USER: admin
+      DB_PASSWORD: admin
+
+    ports:
+      - "8082:8082"
+
+    depends_on:
+      - postgres-user
+
+  frontend:
+
+    image: 437345552366.dkr.ecr.us-east-1.amazonaws.com/uce-health-frontend:qa
+
+    container_name: frontend
+
+    ports:
+      - "80:80"
     image: frontend-auth-ui:latest
 
     container_name: frontend
