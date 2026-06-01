@@ -13,8 +13,11 @@ import org.springframework.stereotype.Service;
 import ec.edu.uce.auth.dto.AuthResponse;
 import ec.edu.uce.auth.dto.UserResponse;
 import ec.edu.uce.auth.dto.UpdateRoleRequest;
+import ec.edu.uce.auth.dto.UserProfileRequest;
+
 import java.util.List;
 import java.util.UUID;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +25,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RestTemplate restTemplate;
 
     public ApiResponse register(RegisterRequest request) {
 
@@ -35,7 +39,19 @@ public class AuthService {
                 .role(Role.PATIENT)
                 .build();
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        UserProfileRequest profileRequest =
+        UserProfileRequest.builder()
+                .authUserId(savedUser.getId().toString())
+                .email(savedUser.getEmail())
+                .build();
+
+                restTemplate.postForObject(
+                        "http://localhost:8082/api/users",
+                        profileRequest,
+                        Object.class
+                );
 
         return new ApiResponse("User registered successfully");
     }

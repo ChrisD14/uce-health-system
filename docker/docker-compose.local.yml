@@ -32,21 +32,27 @@ services:
     ports:
       - "8081:8081"
 
+  postgres-user:
+
+    image: postgres:16
+
+    container_name: postgres-user
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+
+    ports:
+      - "5434:5432"
+
+    volumes:
+      - user_postgres_data:/var/lib/postgresql/data
+
 volumes:
+
   auth_postgres_data:
 
-
-user-postgres:
-  image: postgres:16
-
-  container_name: postgres-user
-
-  restart: always
-
-  environment:
-    POSTGRES_DB: userdb
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-
-  ports:
-    - "5434:5432"
+  user_postgres_data:
