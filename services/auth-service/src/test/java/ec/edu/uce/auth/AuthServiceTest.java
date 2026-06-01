@@ -1,4 +1,4 @@
-package ec.edu.uce.auth.service;
+package ec.edu.uce.auth;
 
 import org.junit.jupiter.api.Test;
 

@@ -44,6 +44,10 @@ public class AuthController {
     @GetMapping("/me")
     public String me(Authentication authentication) {
 
+        System.out.println(
+            "AUTH OBJECT: " + authentication
+        );
+
         return authentication.getName();
     }
 

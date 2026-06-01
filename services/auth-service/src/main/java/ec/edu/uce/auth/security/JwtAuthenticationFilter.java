@@ -40,8 +40,12 @@ public class JwtAuthenticationFilter
         String token =
                 authHeader.substring(7);
 
+                System.out.println("TOKEN RECEIVED: " + token);
+
         String username =
                 jwtService.extractUsername(token);
+
+                System.out.println("USERNAME: " + username);
 
         if (username != null &&
                 SecurityContextHolder
@@ -67,6 +71,7 @@ public class JwtAuthenticationFilter
             SecurityContextHolder
                     .getContext()
                     .setAuthentication(authToken);
+                    System.out.println("AUTHENTICATED");
         }
 
         filterChain.doFilter(request, response);

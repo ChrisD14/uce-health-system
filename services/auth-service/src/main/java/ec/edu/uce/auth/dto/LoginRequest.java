@@ -3,7 +3,6 @@ package ec.edu.uce.auth.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import jakarta.validation.Valid;
 
 @Data
 public class LoginRequest {
@@ -15,3 +14,4 @@ public class LoginRequest {
     @NotBlank
     private String password;
 }
+

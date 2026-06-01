@@ -10,7 +10,6 @@ import ec.edu.uce.auth.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ec.edu.uce.auth.security.JwtService;
 import ec.edu.uce.auth.dto.AuthResponse;
 import ec.edu.uce.auth.dto.UserResponse;
 import ec.edu.uce.auth.dto.UpdateRoleRequest;
@@ -43,29 +42,29 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
 
-    User user = userRepository.findByEmail(
-            request.getEmail())
-            .orElseThrow(() ->
-                    new RuntimeException(
-                            "User not found"));
+        User user = userRepository.findByEmail(
+                request.getEmail())
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "User not found"));
 
-    if (!passwordEncoder.matches(
-            request.getPassword(),
-            user.getPassword())) {
+        if (!passwordEncoder.matches(
+                request.getPassword(),
+                user.getPassword())) {
 
-        throw new RuntimeException(
-                "Invalid credentials");
-    }
+                throw new RuntimeException(
+                        "Invalid credentials");
+        }
 
-    String token =
-            jwtService.generateToken(user);
+        String token =
+                jwtService.generateToken(user);
 
-    return AuthResponse.builder()
-            .accessToken(token)
-            .email(user.getEmail())
-            .role(user.getRole().name())
-            .build();
-}
+        return AuthResponse.builder()
+                .accessToken(token)
+                .email(user.getEmail())
+                .role(user.getRole().name())
+                .build();
+        }
     private final JwtService jwtService;
 
     public List<UserResponse> getUsers() {
