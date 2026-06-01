@@ -18,4 +18,4 @@ spring:
         format_sql:true
 
 jwt:
-  secret: UCEHealthSystemSuperSecretKey2026
+  secret: UCEHealthSystemSecretKey2026ForJWTAuthenticationAndDistributedArchitecture
