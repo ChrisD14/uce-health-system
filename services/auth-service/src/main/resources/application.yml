@@ -2,20 +2,20 @@ server:
   port: 8081
 
 spring:
-
   datasource:
-    url: jdbc:postgresql://localhost:5433/authdb
-    username: admin
-    password: admin
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
       ddl-auto: update
 
     show-sql: true
-    properties:
-      hibernate:
-        format_sql:true
 
 jwt:
-  secret: UCEHealthSystemSecretKey2026ForJWTAuthenticationAndDistributedArchitecture
+  secret: ${JWT_SECRET}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
