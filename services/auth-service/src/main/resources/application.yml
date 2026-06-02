@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/authdb}
+    username: ${DB_USER:admin}
+    password: ${DB_PASSWORD:admin}
 
   jpa:
     hibernate:
@@ -14,7 +14,7 @@ spring:
     show-sql: true
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:MiSuperSecretKeyParaDesarrolloLocal}
 
 springdoc:
   swagger-ui:
