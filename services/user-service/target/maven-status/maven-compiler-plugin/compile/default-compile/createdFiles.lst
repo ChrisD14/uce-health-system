@@ -1,0 +1,9 @@
+ec\edu\uce\user\controller\UserProfileController.class
+ec\edu\uce\user\dto\CreateProfileRequest.class
+ec\edu\uce\user\entity\UserProfile.class
+ec\edu\uce\user\repository\UserProfileRepository.class
+ec\edu\uce\user\entity\UserProfile$UserProfileBuilder.class
+ec\edu\uce\user\dto\UpdateProfileRequest.class
+ec\edu\uce\user\service\UserProfileService.class
+ec\edu\uce\user\UserServiceApplication.class
+ec\edu\uce\user\config\CorsConfig.class
