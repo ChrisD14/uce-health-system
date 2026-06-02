@@ -39,7 +39,7 @@ services:
       DB_URL: jdbc:postgresql://postgres-auth:5432/authdb
       DB_USER: admin
       DB_PASSWORD: admin
-      JWT_SECRET: UceHealthSystemQaJwtSecret2026
+      JWT_SECRET: UceHealthSystemJwtSecretKeyForQaEnvironment2026SecureAuthenticationMicroservice
 
     ports:
       - "8081:8081"
